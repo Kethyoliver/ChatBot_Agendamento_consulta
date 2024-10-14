@@ -1,0 +1,97 @@
+version: "3.1"
+nlu:
+- intent: saudacao
+  examples: |
+    - Alô
+    - olá
+    - oi
+    - bom dia
+    - boa tarde
+    - boa noite
+    - E ai
+    - salve
+- intent: agendamento_consulta
+  examples: |
+    - Olá, gostaria de agendar uma consulta com o Dr. Silva para a próxima terça-feira, se possível
+    - Eu gostaria de marcar uma consulta para o dia 15 de outubro, por favor.
+    - Tenho interesse em agendar uma consulta com a Dra. Oliveira.
+    - Tem uma consulta para esta semana. Tem algum horário livre?
+    - Poderia agendar uma consulta para o dia 20/09
+    - Preciso agendar uma consulta
+    - Quero marcar uma consulta
+    - Poderia verificar se tem um horário disponível.
+- intent: dados_paciente
+  examples: |
+    - Nome completo João Silva e meu telefone é [(11)98765-4321](telefone_paciente)
+    - Ana Paula Costa, telefone (21) 99876-5432
+    - Nome:Lucas Almeida tel. 31 912345678.
+    - Sou Maria Fernanda e meu telefone 41 998881234
+    - [Fernanda Lima](nome_paciente) celular 71 98765-1234
+    - Felipe Oliveirav telefone fixo 4066-6852
+    - João Maria +55 11 98526-6534
+    - Meu nome é maria clara e o meu celular 9563258552
+- intent: agendamento_especialidade
+  examples: |
+    - Consulta com o [cardiologista](especialidade)
+    - Tenho interesse em marcar uma consulta com o [dermatologista](especialidade)
+    - Poderia agendar uma consulta com o [ortopedista](especialidade)?
+    - Agendar uma consulta com o [oftalmologista](especialidade).
+    - Estou precisando de uma consulta com o [neuro](especialidade)
+    - Teria agenda com [nutricionista](especialidade)
+    - [psicologa](especialidade)
+    - [otorinolaringologista](especialidade)
+    - Gostaria de um [urologista](especialidade)
+- intent: agendamento_data_hora
+  examples: |
+    - [terça-feira](dia_semana) às 16h
+    - quinta-feira no período da tarde
+    - quarta, 26/09 às 18h
+    - dia 27 de outubro período da manhã
+    - quinta-feira, 26 de setembro às 14h
+    - No dia [10/09](data_hora) no período da manhã
+    - poderia ser no período da noite, terça que vem
+    - 26/09 - noite
+    - Na próxima terça, no período da [manhã](periodo_consulta)
+- intent: agradecimento
+  examples: |
+    - Obrigado
+    - Valeu
+    - Valeu bot, você é demais
+    - Agradeço a ajuda
+    - Desde já agradeço
+    - vlw
+    - Muito obrigado pela ajuda
+    - Agradeço pelo atendimento
+- intent: finalizacao
+  examples: |
+    - Somente
+    - Só isso
+    - Apenas
+    - Não precisa de mais nada
+    - Não, por enquanto
+    - Não
+    - Não há mais nada que precise
+    - É isso mesmo
+- regex: data_hora
+  examples: |
+    - \d{2}/\d{2}/\d{2,4}  # 12/09/2024
+    - \d{1,2} de \w+         # 15 de outubro
+    - \b(hoje|amanhã|ontem)\b # hoje, amanhã, ontem
+    - \b(?:segunda|terça|quarta|quinta|sexta|sábado|domingo)\b
+- lookup: periodo_consulta
+  examples: |
+    - manhã
+    - tarde
+    - noite
+    - final de tarde
+    - início da manhã
+- lookup: nome_paciente
+  examples: |
+    - João
+    - maria 
+- lookup: telefone_paciente
+  examples: |
+    - 1198626-5236
+    - (11)98564-5892
+    - 11986265236
+    - 12 4066-2695

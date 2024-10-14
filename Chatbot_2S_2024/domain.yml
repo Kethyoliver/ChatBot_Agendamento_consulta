@@ -1,0 +1,75 @@
+version: '3.1'
+intents:
+- agradecimento
+- agendamento_consulta
+- dados_paciente
+- agendamento_especialidade
+- saudacao
+- agendamento_data_hora
+- finalizacao
+entities:
+- nome_paciente
+- telefone_paciente
+- dia_semana
+- periodo_consulta
+- data_hora
+- especialidade
+slots:
+  dados_paciente_nome:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: nome_paciente   
+  dados_paciente_tel: 
+    type: text
+    influence_conversation: true
+    mappings:  
+    - type: from_entity
+      entity: telefone_paciente     
+  especialidade_medico:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: especialidade
+  periodo_consulta_agenda:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: periodo_consulta
+  data_hora_consulta:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: data_hora 
+    - type: from_entity
+      entity: dia_semana  
+responses:
+  utter_saudacao:
+  - text: Olá, seja bem-vindo à clínica Saúde+. Como posso ajudá-lo?
+  utter_agendamento_consulta:
+  - text: Claro, para isso iremos encaminhar os seus dados para a central de atendimento para darmos continuidade ao agendamento. Favor digite o nome completo do paciente e telefone para contato.
+  utter_dados:
+  - text: Obrigado, favor informar a especialidade desejada.
+  utter_agendamento_especialidade:
+  - text: Entendido. Qual a data e o período (manhã/tarde) que você prefere?
+  utter_agendamento_data_hora:
+  - text: "Certo, {dados_paciente_nome}, iremos agendar sua consulta de {especialidade_medico} no dia {data_hora_consulta} no período da {periodo_consulta_agenda}. Tudo bem!"
+  utter_agradecimento:
+  - text: Foi um prazer atendê-lo <3
+  utter_repetir_especialidade:
+  - text: Não consegui detectar a especialidade, favor reformular sua frase.
+  utter_reformular:
+  - text: Me desculpe, você pode reformular a frase?
+  utter_default:
+  - text: Desculpe não estou entendendo o que vc quer. Favor, reformular suas frases.
+  utter_finalizacao:
+  - text: Tenha um ótimo dia!
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+

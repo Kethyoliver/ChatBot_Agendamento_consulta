@@ -1,0 +1,60 @@
+version: "3.1"
+
+stories:
+
+- story: Inicio da Conversa
+  steps:
+  - intent: saudacao
+  - action: utter_saudacao
+  - intent: agendamento_consulta
+  - action: utter_agendamento_consulta
+  - checkpoint: fim_inicio_conversa
+
+- story: Agendamento de consulta com slots especialidade
+  steps:
+  - checkpoint: fim_inicio_conversa
+  - intent: dados_paciente
+  - slot_was_set:
+    - dados_paciente_nome: João (11)98265-5422
+  - slot_was_set:
+    - dados_paciente_tel: (11)98265-5422  
+  - action: utter_dados
+  - intent: agendamento_especialidade
+    entities:
+    - especialidade_medico: cardiologista
+  - action: utter_agendamento_especialidade
+  - checkpoint: deteccao_especialidade
+
+- story: Agendamento de consulta sem slots especialidade
+  steps:
+  - checkpoint: fim_inicio_conversa
+  - intent: agendamento_especialidade
+  - action: utter_repetir_especialidade
+  - checkpoint: fim_inicio_conversa
+
+- story: Agendamento de consulta com slots periodo e hora
+  steps:
+  - checkpoint: deteccao_especialidade
+  - intent: agendamento_data_hora
+  - slot_was_set:
+    - periodo_consulta_agenda: tarde
+  - slot_was_set:
+    - data_hora_consulta: "26/09/2023 às 16h"
+  - action: utter_agendamento_data_hora
+
+- story: Agendamento de consulta sem slots periodo e hora
+  steps:
+  - checkpoint: deteccao_especialidade
+  - intent: agendamento_data_hora_paciente
+  - action: utter_reformular
+  - checkpoint: deteccao_especialidade  
+
+- story: Finalizacao do dialogo 
+  steps:
+  - checkpoint: finalizacao_dialogo
+  - intent: finalizacao
+  - action: utter_finalizacao
+
+
+
+  
